@@ -1,5 +1,3 @@
-const value = document.querySelector("input").value;
-
 function useRequest(url, callback) {
   var xhr = new XMLHttpRequest();
   xhr.open("GET", url, true);
@@ -12,6 +10,7 @@ function useRequest(url, callback) {
         callback(result);
       }
     }
+    console.log(url);
   };
 
   xhr.onerror = function () {
@@ -40,14 +39,16 @@ function displayCards(apiData) {
 
   result.innerHTML = cards;
 }
-if (value < 1 || value > 10) {
-  console.log("число вне диапазона от 1 до 10");
-} else {
-  const btn = document.querySelector("button");
-  btn.addEventListener("click", () => {
+
+const btn = document.querySelector("button");
+btn.addEventListener("click", () => {
+  const value = document.querySelector("input").value;
+  if (value < 1 || value > 10) {
+    console.log("число вне диапазона от 1 до 10");
+  } else {
     useRequest(
       `https://jsonplaceholder.typicode.com/photos?_limit=${value}`,
       displayCards
     );
-  });
-}
+  }
+});
