@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
             imgCont.append(img);
           })
           .catch((error) => {
-            console.error("Error fetching image:", error);
+            console.log("Error fetching image:", error);
           });
       } else {
         console.log("its not");
