@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("Error fetching image:", error);
       });
   };
-
+  const imgCont = document.querySelector(".images");
   btn.addEventListener("click", async () => {
     const width = document.querySelector(".first").value;
     const height = document.querySelector(".second").value;
@@ -21,10 +21,11 @@ document.addEventListener("DOMContentLoaded", function () {
       if (width <= 300 && width >= 100 && height <= 300 && height >= 100) {
         const urlImage = `https://dummyimage.com/${width}x${height}/`;
         const img = await initImage(urlImage);
-        const imgCont = document.querySelector(".images");
+
         imgCont.innerHTML = `<img src="${img.url}" />`;
       } else {
-        console.log("its not");
+        imgCont.innerText = "одно из чисел вне диапазона от 100 до 300";
+        console.log("одно из чисел вне диапазона от 100 до 300");
       }
     }
   });

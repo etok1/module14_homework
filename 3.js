@@ -44,6 +44,7 @@ const btn = document.querySelector("button");
 btn.addEventListener("click", () => {
   const value = document.querySelector("input").value;
   if (value < 1 || value > 10) {
+    result.innerText = "число вне диапазона от 1 до 10";
     console.log("число вне диапазона от 1 до 10");
   } else {
     useRequest(
