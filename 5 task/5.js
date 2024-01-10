@@ -1,17 +1,16 @@
 document.addEventListener("DOMContentLoaded", function () {
-  console.log("hiig");
   const btns = document.querySelectorAll("button");
 
   const getImages = (url) => {
     return fetch(url)
       .then((response) => {
-        return response;
+        return response.json();
       })
       .then((json) => {
         return json;
       })
       .catch((error) => {
-        console.error(error);
+        console.error("Error fetching image:", error);
       });
   };
 
@@ -27,9 +26,31 @@ document.addEventListener("DOMContentLoaded", function () {
         const urlImage = `https://jsonplaceholder.typicode.com/photos?_page=${pageNum}&_limit=${limit}`;
         const img = await getImages(urlImage);
         const imgCont = document.querySelector(".imagesCont");
-        imgCont.innerHTML = `<img src="${img.url}" />`;
-        console.log(urlImage);
+
+        let cards = "";
+        img.forEach((item) => {
+          const block = `<img src="${item.url}"/>`;
+          cards += block;
+        });
+        imgCont.innerHTML = cards;
+
+        console.log(img);
+
+        localStorage.setItem("lastImages", JSON.stringify(img));
+        console.log(localStorage.getItem("lastImages"));
+        console.log(JSON.parse(localStorage.getItem("lastImages")));
       }
     });
   });
+  const imgCont = document.querySelector(".imagesCont");
+  const lastImage = localStorage.getItem("lastImages");
+  const storedImages = JSON.parse(lastImage);
+  if (storedImages) {
+    let cards = "";
+    storedImages.forEach((item) => {
+      const block = `<img src="${item.url}"/>`;
+      cards += block;
+    });
+    imgCont.innerHTML = cards;
+  }
 });
